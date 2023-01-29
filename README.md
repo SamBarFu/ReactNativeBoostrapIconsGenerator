@@ -22,3 +22,8 @@ node generate-icons.js alarm alarm-fill
 ```
 ## Usage 
 Just copy the generated icons into your project and import them as you would any other React Native component.
+
+Example below is the `alarm-fill` icon.
+``` tsx
+<BootstrapIconAlarmFill width="20" height="20" fill="#7ee383" />
+```
