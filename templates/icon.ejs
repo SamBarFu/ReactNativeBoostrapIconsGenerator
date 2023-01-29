@@ -1,0 +1,18 @@
+import * as React from 'react';
+import { Svg, Path } from 'react-native-svg';
+
+interface Props {
+  width?: number | string;
+  height?: number | string;
+  fill?: string;
+}
+
+const <%= iconName %>: React.FunctionComponent<Props> = ({ width = '16', height = '16', fill = 'currentColor' }) => (
+  <Svg width={width} height={height} viewBox="0 0 <%= width %> <%= height %>"><% -%>
+  <% paths.forEach((path) => { %>
+    <Path fill={fill} d="<%= path.d %>" /><% -%>
+  <% }); %>
+  </Svg>
+);
+
+export default <%= iconName %>;
