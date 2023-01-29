@@ -7,8 +7,8 @@ interface Props {
   fill?: string;
 }
 
-const <%= iconName %>: React.FunctionComponent<Props> = ({ width = '16', height = '16', fill = 'currentColor' }) => (
-  <Svg width={width} height={height} viewBox="0 0 <%= width %> <%= height %>"><% -%>
+const <%= iconName %>: React.FunctionComponent<Props> = ({ width = '16', height = '16', fill = 'currentColor', ...props }) => (
+  <Svg width={width} height={height} viewBox="0 0 <%= width %> <%= height %>" {...props}><% -%>
   <% paths.forEach((path) => { %>
     <Path fill={fill} d="<%= path.d %>" /><% -%>
   <% }); %>
