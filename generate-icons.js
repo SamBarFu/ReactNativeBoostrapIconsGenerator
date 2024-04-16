@@ -7,7 +7,7 @@ const path = require('path');
 // The generated components are based on the Bootstrap Icons URL, for example: https://icons.getbootstrap.com/icons/alarm-fill/
 // If the URL changes, then the components will not be generated correctly
 const iconsUrl = 'https://icons.getbootstrap.com/';
-const iconsPath = './icons/';
+let iconsPath = './icons/';
 
 function toPascalCase(str) {
   return str
@@ -75,13 +75,22 @@ async function generateIconComponent(icon) {
   const component = ejs.render(template, { iconName: iconComponentName, width: 16, height: 16, paths });
 
   // Write the component to a file
-  console.log(`Generating ${iconComponentName}...`);  
+  console.log(`Generating ${iconComponentName}...`);
   fs.writeFileSync(path.join(iconsPath, `${iconComponentName}.tsx`), component);
 }
 
 async function generateIcons() {
   const argIconNames = process.argv.slice(2);
   const icons = await fetchIconsList(argIconNames);
+
+  if (argIconNames.some(arg => arg.startsWith('--path='))) {
+    const strPathIndex = argIconNames.findIndex(arg => arg.startsWith('--path='));
+    const strPath = argIconNames[strPathIndex].substring('--path='.length);
+    const match = strPath.match(/(.+)/);
+    if (match) {
+      iconsPath = match[1];
+    }
+  }
 
   // If the iconsPath does not exist, then create it
   if (!fs.existsSync(iconsPath)) {
